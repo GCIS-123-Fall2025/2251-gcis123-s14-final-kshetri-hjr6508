@@ -16,13 +16,39 @@ complete the class by making the following enhancements:
 - Items can be sorted based on the item code.
 Write down the manual test by creating at least two items.
 """
-
+def sort_key( value ):
+    return value.get_item_code()
 class Item:
-    pass # please replace with your solution
+    __slots__ = [ '__itemcode', '__name', '__price' ]
+    def __init__( self, itemcode, name, price ):
+        self.__itemcode = itemcode
+        self.__name = name
+        self.__price = price
+    def get_item_code( self ):  return self.__itemcode
+    def get_name( self ): return self.__name
+    def get_price( self ):  return self.__price
+    def __eq__(self, value):
+        if type(self) == type(value):
+            return self.__itemcode == value.__itemcode
+    def __hash__(self):
+        return hash( self.__itemcode )
+    def __repr__(self):
+        return '(' + self.__itemcode + ', ' + self.__name + ', ' + str(self.__price) + ')'
 
 
 # manual test from main() method
-def main():     pass
- 
+def main():
+    i1 = Item( "ABCD-1234", "Sliky Camisole", 24 )
+    i2 = Item( "ABCD-1234", "Sliky Camisole", 25 )
+    i3 = Item( "EFGH-5678", "Choclate Milk", 24 )
+    print( "item 1 == item 2", i1 == i2 )
+    print( "item 1 == item 3", i1 == i3 )
+    test_list = [ i3, i1, i2, ]
+    print( "list", test_list )
+    test_set = { i1, i2, i3 }
+    print( "set", test_set )
+
+    print( "sorted", sorted( test_list, key=sort_key ) )
+
 
 if __name__ == "__main__":    main()
