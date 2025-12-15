@@ -23,9 +23,20 @@ For credit your function must use a stack or a queue in a significant way.
 """
 
 def even_digits(integer):
-    pass # please replace with your solution
-
-
+    stack = node_stack.Stack()
+    ind = 1
+    out = 0
+    while integer != 0:
+        num = integer % 10
+        integer = integer // 10
+        if num % 2 == 0: 
+            stack.push( num )
+    for _ in range(1,len(stack)): ind *= 10
+    while not stack.is_empty():
+        num = stack.pop()
+        out += num * ind
+        ind /= 10
+    return int( out ) 
 
 
 
